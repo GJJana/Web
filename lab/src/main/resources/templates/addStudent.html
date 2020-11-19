@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<
+
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
@@ -28,10 +28,6 @@
 <ul>
     <li th:each="student:${students}" th:text="${student.getFullName()}"></li>
 </ul>
-<div th:if="${hasError}" >
 
-    <div th:text="${error}">
-    </div>
-</div>
 </body>
 </html>

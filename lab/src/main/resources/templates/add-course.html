@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Add product</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+                aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
+            <ul class="navbar-nav m-auto">
+                <li class="nav-item m-auto">
+                    <a class="nav-link active" href="/courses">Courses</a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <form action="/courses/add" method="POST">
+                <div class="form-group">
+                    <label for="name">Course Name</label>
+                    <input type="text"
+                           class="form-control"
+                           id="name"
+                           name="name"
+                           th:value="(${course}!=null ? ${course.getName()}:'')"
+                           required
+                           placeholder="Enter course name">
+                </div>
+                <div class="form-group">
+                    <label for="description">Course Description</label>
+                    <input type="text"
+                           class="form-control"
+                           id="description"
+                           name="description"
+                           th:value="(${course}!=null ? ${course.getDescription()}:'')"
+                           required
+                           placeholder="Enter course description">
+                </div>
+                <div class="form-group">
+                    <label>Teacher</label>
+                    <select name="teacher" class="form-control">
+                        <option th:if="${course} != null"
+                                th:each="t : ${teachers}"
+                                th:selected="${course.getTeacher() != null &&
+                                course.getTeacher().getId() == t.getId()}"
+                                th:value="${t.getId()}"
+                                th:text="${t.getNameSurname()}">
+                        </option>
+                        <option th:if="${course} == null"
+                                th:each="t: ${teachers}"
+                                th:value="${t.getId()}"
+                                th:text="${t.getNameSurname()}">
+                        </option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <a type="button" class="btn btn-primary" href="/courses">Back</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<footer class="text-black-50 mt-xl-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-lg-4 col-xl-3">
+                <h5>About</h5>
+                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+                <p class="mb-0">
+                    Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant
+                    impression.
+                </p>
+            </div>
+
+
+            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto">
+                <h5>Informations</h5>
+                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+                <ul class="list-unstyled">
+                    <li><a href="">Link 1</a></li>
+                    <li><a href="">Link 2</a></li>
+                    <li><a href="">Link 3</a></li>
+                    <li><a href="">Link 4</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto">
+                <h5>Others links</h5>
+                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+                <ul class="list-unstyled">
+                    <li><a href="">Link 1</a></li>
+                    <li><a href="">Link 2</a></li>
+                    <li><a href="">Link 3</a></li>
+                    <li><a href="">Link 4</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-4 col-lg-3 col-xl-3">
+                <h5>Contact</h5>
+                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+                <ul class="list-unstyled">
+                    <li><i class="fa fa-home mr-2"></i> My company</li>
+                    <li><i class="fa fa-envelope mr-2"></i> email@example.com</li>
+                    <li><i class="fa fa-phone mr-2"></i> + 33 12 14 15 16</li>
+                    <li><i class="fa fa-print mr-2"></i> + 33 12 14 15 16</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
+
+
+

@@ -2,6 +2,7 @@ package mk.ukim.finki.wp.lab.service.impl;
 
 import mk.ukim.finki.wp.lab.model.Course;
 import mk.ukim.finki.wp.lab.model.Student;
+import mk.ukim.finki.wp.lab.model.exception.WrongTeacherIdExeption;
 import mk.ukim.finki.wp.lab.repository.CourseRepository;
 import mk.ukim.finki.wp.lab.service.CourseService;
 import mk.ukim.finki.wp.lab.service.StudentService;
@@ -41,4 +42,26 @@ public class CourseServiceImpl implements CourseService {
     public List<Course> listAll() {
         return courseRepository.findAllCourses();
     }
+
+    @Override
+    public Course addStudentToCourse(Student student, Course course) {
+       return courseRepository.addStudentToCourse(student,course);
+    }
+
+    @Override
+    public Course saveCourse(String name, String description, Long teacherId)  {
+        return courseRepository.saveCourse(name,description,teacherId);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        this.courseRepository.deleteById(id);
+    }
+
+    @Override
+    public Course findCourseById(Long id) {
+        return this.courseRepository.findById(id);
+    }
+
+
 }

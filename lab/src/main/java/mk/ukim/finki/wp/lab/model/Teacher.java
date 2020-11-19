@@ -26,4 +26,8 @@ public class Teacher {
     public String getSurname() {
         return surname;
     }
+    public String getNameSurname() {
+        return name+" "+surname;
+    }
+
 }
