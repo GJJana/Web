@@ -69,7 +69,7 @@ public class CreateStudentServlet extends HttpServlet {
            // }
            // else{
               //  req.setAttribute("students",studentService.listAll());
-                resp.sendRedirect("/createStudent");
+                resp.sendRedirect("/addStudent");
            // }
 
 

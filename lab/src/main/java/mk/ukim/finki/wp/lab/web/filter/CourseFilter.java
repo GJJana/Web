@@ -21,11 +21,11 @@ public class CourseFilter implements Filter {
         HttpServletResponse res=(HttpServletResponse) response;
         String courseID=(String) req.getSession().getAttribute("courseID");
         String path=req.getServletPath();
-        //if(courseID==null && !path.equals("/courses")) {
-          //  res.sendRedirect("/courses");
-        //}else {
-       //     chain.doFilter(request,response);
-        //}
+        if(courseID==null&&!path.equals("/courses")){
+                res.sendRedirect("/courses");
+        }else {
+            chain.doFilter(request, response);
+        }
     }
 
     @Override

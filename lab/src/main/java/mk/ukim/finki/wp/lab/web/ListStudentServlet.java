@@ -26,7 +26,7 @@ public class ListStudentServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("students", studentService.listAll());
-        //context.setVariable("courseID",req.getSession().getAttribute("courseID"));
+        context.setVariable("courseID",req.getSession().getAttribute("courseID"));
 
         springTemplateEngine.process("listStudents.html", context, resp.getWriter());
     }
