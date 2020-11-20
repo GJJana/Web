@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 @Data
-public class Course {
+public class Course implements Comparable<Course>{
     Long courseId;
     String name;
     String description;
@@ -67,5 +67,10 @@ public class Course {
 
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
+    }
+
+    @Override
+    public int compareTo(Course o) {
+        return this.getName().compareTo(o.getName());
     }
 }

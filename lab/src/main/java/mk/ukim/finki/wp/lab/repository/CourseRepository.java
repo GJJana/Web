@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class CourseRepository {
@@ -43,12 +44,13 @@ public class CourseRepository {
     }
     //edit
     //add
-    public Course saveCourse(String name,String description,Long teacherId) {
+    public Course saveCourse(Long courseId,String name,String description,Long teacherId) {
             Teacher teacher=DataHolder.teachers.stream().filter(x->x.getId().equals(teacherId)).findFirst().orElse(null);
 
-            DataHolder.courses.removeIf(x->x.getName().equals(name));
+            DataHolder.courses.removeIf(x->x.getCourseId().equals(courseId));
             Course course=new Course(name,description,teacher);
             DataHolder.courses.add(course);
+            DataHolder.courses=DataHolder.courses.stream().sorted().collect(Collectors.toList());
             return course;
 
     }
@@ -56,6 +58,7 @@ public class CourseRepository {
     {
         DataHolder.courses.removeIf(x->x.getCourseId().equals(id));
     }
+
 
 
 }

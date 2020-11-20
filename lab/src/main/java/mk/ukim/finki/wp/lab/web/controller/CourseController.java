@@ -74,9 +74,13 @@ public class CourseController {
     @PostMapping("/add")
     public String saveCourse(@RequestParam String name,
                              @RequestParam String description,
-                             @RequestParam Long teacher) {
-
-        this.courseService.saveCourse(name, description, teacher);
+                             @RequestParam Long teacher,HttpServletRequest request) {
+       Long tmp;
+        if(request.getParameter("courseId").equals(""))
+           tmp=null;
+        else
+            tmp=Long.parseLong(request.getParameter("courseId"));
+        this.courseService.saveCourse(tmp,name, description, teacher);
         return "redirect:/courses";
     }
 

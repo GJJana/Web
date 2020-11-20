@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Products</title>
+    <title>Courses</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -42,6 +42,13 @@
 
 <div class="container mb-4">
     <div class="row">
+        <div class="col-12">
+            <div th:if="${hasError}" class="error">
+                <div class="text-danger" th:text="${error}"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-12" th:if="${courses.size() > 0}">
             <div class="table-responsive">
                 <table class="table table-striped">
@@ -51,35 +58,25 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <div th:if="${hasError}" class="error">
-                        <div class="text-danger" th:text="${error}"></div>
-                    </div>
-
-                    <form action="/courses" method="post">
-                        <tr th:each="course:${courses}">
-
+                    <tr th:each="course:${courses}">
+                        <form action="/courses" method="post">
                             <td>
                                 <input type="radio" name="courseId" th:value="${course.getCourseId()}"
                                        th:text="${course.getName()}">
                             </td>
-                            <!-- <td>
+                            <button type="submit" name="submit-button" class="btn btn-info">Submit</button>
+                        </form>
+                        <td>
+                            <form th:action="@{'/courses/delete/{id}' (id=${course.getCourseId()})}"
+                                  th:method="delete">
+                                <button type="submit" name="delete-button" class="btn btn-sm btn-danger"><i
+                                        class="fa fa-trash">Delete</i></button>
+                            </form>
+                            <a th:href="@{'/courses/edit/{id}' (id=${course.getCourseId()})}"
+                               class="btn btn-sm btn-info"><i class="fa fa-trash">Edit</i></a>
+                        </td>
 
-                                <form th:action="@{'/courses/delete/{id}' (id=${course.getCourseId()})}" th:method="delete">
-                                    <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash">Delete</i></button>
-                                </form>
-
-
-                            <td>--->
-                            <td>
-                                <a th:href="@{'/courses/edit/{id}' (id=${course.getCourseId()})}"
-                                   class="btn btn-sm btn-info"><i class="fa fa-trash">Edit</i></a>
-
-                            </td>
-
-                        </tr>
-
-                        <button type="submit" class="btn btn-info">Submit</button>
-                    </form>
+                    </tr>
 
                     </tbody>
                 </table>

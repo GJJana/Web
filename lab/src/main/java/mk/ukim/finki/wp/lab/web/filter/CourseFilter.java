@@ -1,4 +1,4 @@
-/*package mk.ukim.finki.wp.lab.web.filter;
+package mk.ukim.finki.wp.lab.web.filter;
 
 
 import javax.servlet.*;
@@ -21,7 +21,7 @@ public class CourseFilter implements Filter {
         HttpServletResponse res=(HttpServletResponse) response;
         String courseID=(String) req.getSession().getAttribute("courseID");
         String path=req.getServletPath();
-        if(courseID==null&&!path.equals("/courses")){
+        if((courseID==null&& path.equals("/createStudent"))||(courseID==null&& path.equals("/addStudent"))||(courseID==null&& path.equals("/studentEnrollmentSummary"))||(courseID==null&& path.equals("/listCourses"))){
                 res.sendRedirect("/courses");
         }else {
             chain.doFilter(request, response);
@@ -34,4 +34,3 @@ public class CourseFilter implements Filter {
     }
 }
 
-*/

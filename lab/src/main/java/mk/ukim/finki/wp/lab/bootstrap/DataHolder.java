@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @Getter
@@ -39,6 +40,6 @@ public class DataHolder {
         courses.add(new Course("Elektronska i mobilna trgovija","React i razvivanje na SpringBoott +React aplikacii",teachers.get(2)));
         courses.add(new Course("Kompjuterski mrezi ","Protokoli za prakjanje i primanje paketi i arhitektura na mrezi",teachers.get(3)));
         courses.add(new Course("Internet Tehnologii","ASP.NET Web Forms i MVC",teachers.get(4)));
-
+        courses= courses.stream().sorted().collect(Collectors.toList());
     }
 }
