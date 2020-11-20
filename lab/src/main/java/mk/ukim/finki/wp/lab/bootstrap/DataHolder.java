@@ -35,7 +35,7 @@ public class DataHolder {
         teachers.add(new Teacher("Kalina","Kalinova"));
         teachers.add(new Teacher("Monika","Moneva"));
 
-        courses.add(new Course("Veb Programiranje","SpringBoot Java tehnologija",teachers.get(0)));
+        courses.add(new Course("Veb Programiranje","SpringBoot Java tehnologija",teachers.get(0), Course.Type.SUMMER));
         courses.add(new Course("Operativni Sistemi","OS i konkurentnost na procesi",teachers.get(1)));
         courses.add(new Course("Elektronska i mobilna trgovija","React i razvivanje na SpringBoott +React aplikacii",teachers.get(2)));
         courses.add(new Course("Kompjuterski mrezi ","Protokoli za prakjanje i primanje paketi i arhitektura na mrezi",teachers.get(3)));

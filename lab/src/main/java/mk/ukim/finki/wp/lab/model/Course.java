@@ -11,6 +11,16 @@ public class Course implements Comparable<Course>{
     String description;
     List<Student> students;
     public Teacher teacher;
+     public enum Type  {
+        WINTER,
+        SUMMER,
+        MANDATORY
+    }
+    Type type;
+
+    public Type getType() {
+        return type;
+    }
 
     public Teacher getTeacher() {
         return teacher;
@@ -46,6 +56,8 @@ public class Course implements Comparable<Course>{
         this.description = description;
         this.students=new ArrayList<>();
         this.teacher=teacher;
+        this.type=Type.MANDATORY;
+
 
     }
     public Course( String name, String description,Teacher teacher) {
@@ -54,8 +66,18 @@ public class Course implements Comparable<Course>{
         this.description = description;
         this.students=new ArrayList<>();
         this.teacher=teacher;
+        this.type=Type.MANDATORY;
 
     }
+    public Course( String name, String description,Teacher teacher,Type type) {
+        this.courseId = (long) (Math.random()*1000);
+        this.name = name;
+        this.description = description;
+        this.students=new ArrayList<>();
+        this.teacher=teacher;
+        this.type=type;
+    }
+
 
     public void setName(String name) {
         this.name = name;

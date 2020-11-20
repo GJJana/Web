@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -26,14 +27,22 @@ public class CourseController {
     }
 
     @GetMapping
-    public String getCoursesPage(@RequestParam(required = false) String error, Model model) {
+    public String getCoursesPage(@RequestParam(required = false) String error,@RequestParam(required = false) String search, Model model) {
         if (error != null && !error.isEmpty()) {
             model.addAttribute("hasError", true);
             model.addAttribute("error", error);
 
 
         }
-        List<Course> courseList = this.courseService.listAll();
+        List<Course> courseList=new ArrayList<>();
+        if(search==null||search.isEmpty())
+        {
+            courseList = this.courseService.listAll();
+        }
+        if(search!=null&&this.courseService.listAll().stream().filter(x->x.getType().toString().equals(search.toUpperCase())).findFirst().orElse(null)!=null)
+        {
+           courseList.add(this.courseService.listAll().stream().filter(x->x.getType().toString().equals(search.toUpperCase())).findFirst().orElse(null)) ;
+        }
 
         model.addAttribute("courses", courseList);
         return "listCourses";
@@ -41,6 +50,12 @@ public class CourseController {
 
     @PostMapping
     public String postCoursesPage(HttpServletRequest request, Model model) {
+
+        if(request.getParameter("search")!=null)
+        {
+            return "redirect:/courses?error=&search="+request.getParameter("search");
+        }
+
         if (request.getParameter("courseId") == null || request.getParameter("courseId").isEmpty()) {
             return "redirect:/courses?error=PleaseChooseA Course";
         }

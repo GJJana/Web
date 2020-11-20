@@ -39,7 +39,7 @@ public class ListStudentServlet extends HttpServlet {
             resp.sendRedirect("/addStudent");
         }
         if ((String) req.getSession().getAttribute("courseID") == null || ((String) req.getSession().getAttribute("courseID")).isEmpty()) {
-            resp.sendRedirect("/listCourses");
+            resp.sendRedirect("/courses");
         }
 
         req.getSession().setAttribute("selectedStudent", username);
