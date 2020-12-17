@@ -29,6 +29,7 @@ public class CoursesListServlet extends HttpServlet {
         context.setVariable("courses", courseService.listAll());
         springTemplateEngine.process("listCourses.html", context, resp.getWriter());
 
+
     }
 
     @Override
