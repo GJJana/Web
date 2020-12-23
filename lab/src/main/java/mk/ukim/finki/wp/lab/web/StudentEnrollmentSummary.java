@@ -1,8 +1,9 @@
 package mk.ukim.finki.wp.lab.web;
 
 import mk.ukim.finki.wp.lab.model.Course;
+import mk.ukim.finki.wp.lab.model.Grade;
 import mk.ukim.finki.wp.lab.service.CourseService;
-import mk.ukim.finki.wp.lab.service.StudentService;
+import mk.ukim.finki.wp.lab.service.GradeService;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
@@ -12,16 +13,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "StudentEnrollmentSummary", urlPatterns = "/studentEnrollmentSummary")
 public class StudentEnrollmentSummary extends HttpServlet {
 
     private final SpringTemplateEngine springTemplateEngine;
     private final CourseService courseService;
+    private final GradeService gradeService;
 
-    public StudentEnrollmentSummary(SpringTemplateEngine springTemplateEngine, CourseService courseService) {
+    public StudentEnrollmentSummary(SpringTemplateEngine springTemplateEngine, CourseService courseService, GradeService gradeService) {
         this.springTemplateEngine = springTemplateEngine;
         this.courseService = courseService;
+        this.gradeService = gradeService;
     }
 
     @Override
@@ -31,9 +35,10 @@ public class StudentEnrollmentSummary extends HttpServlet {
         Long courseId = Long.parseLong((String) req.getSession().getAttribute("courseID"));
         String username = (String) req.getSession().getAttribute("selectedStudent");
         courseService.addStudentInCourse(username, courseId);
-        Course c = courseService.listAll().stream().filter(x -> x.getCourseId().equals(courseId)).findFirst().orElse(null);
+        Course c = courseService.findCourseById(courseId);
+        List<Grade> grades=gradeService.getGradesForCourse(courseId);
         context.setVariable("course", c);
-        context.setVariable("students", c.getStudents());
+        context.setVariable("grades",grades );
         springTemplateEngine.process("studentsInCourse.html", context, resp.getWriter());
     }
 

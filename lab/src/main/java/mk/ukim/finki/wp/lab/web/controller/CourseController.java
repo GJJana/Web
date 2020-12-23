@@ -4,7 +4,7 @@ package mk.ukim.finki.wp.lab.web.controller;
 import mk.ukim.finki.wp.lab.model.Course;
 import mk.ukim.finki.wp.lab.model.Teacher;
 import mk.ukim.finki.wp.lab.service.CourseService;
-import mk.ukim.finki.wp.lab.service.impl.TeacherService;
+import mk.ukim.finki.wp.lab.service.TeacherService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -39,9 +39,9 @@ public class CourseController {
         {
             courseList = this.courseService.listAll();
         }
-        if(search!=null&&this.courseService.listAll().stream().filter(x->x.getType().toString().equals(search.toUpperCase())).findFirst().orElse(null)!=null)
+        if(search!=null)
         {
-           courseList.add(this.courseService.listAll().stream().filter(x->x.getType().toString().equals(search.toUpperCase())).findFirst().orElse(null)) ;
+           courseList=this.courseService.search(search);
         }
 
         model.addAttribute("courses", courseList);

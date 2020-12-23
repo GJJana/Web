@@ -1,6 +1,5 @@
 package mk.ukim.finki.wp.lab.web;
 
-import mk.ukim.finki.wp.lab.repository.CourseRepository;
 import mk.ukim.finki.wp.lab.service.CourseService;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.spring5.SpringTemplateEngine;

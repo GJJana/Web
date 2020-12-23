@@ -40,12 +40,12 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th scope="col">Student Name</th>
+                        <th scope="col">Student Grade</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="student:${students}" >
-                        <td th:text="${student.getNewName()}"></td>
+                    <tr th:each="grade:${grades}" >
+                        <td th:text="${grade.getGrade()}"></td>
                     </tr>
                     <tr>
 

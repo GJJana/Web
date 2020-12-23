@@ -1,4 +1,4 @@
-package mk.ukim.finki.wp.lab.repository;
+package mk.ukim.finki.wp.lab.repository.impl;
 
 //import mk.ukim.finki.wp.lab.bootstrap.DataHolder;
 
@@ -39,8 +39,10 @@ public class CourseRepository {
     }
 
     public Course addStudentToCourse(Student student, Course course) {
-        DataHolder.courses.stream().filter(x -> x.getCourseId().equals(course.getCourseId())).findFirst().orElse(null).addStudent(student);
-        return DataHolder.courses.stream().filter(x -> x.getCourseId().equals(course.getCourseId())).findFirst().orElse(null);
+        Course c=DataHolder.courses.stream().filter(x -> x.getCourseId().equals(course.getCourseId())).findFirst().orElseThrow(IllegalArgumentException::new);
+        c.getStudents().add(student);
+
+        return c;
     }
     //edit
     //add

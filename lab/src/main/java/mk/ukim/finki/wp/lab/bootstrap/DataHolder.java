@@ -2,8 +2,10 @@ package mk.ukim.finki.wp.lab.bootstrap;
 
 import lombok.Getter;
 import mk.ukim.finki.wp.lab.model.Course;
+import mk.ukim.finki.wp.lab.model.Grade;
 import mk.ukim.finki.wp.lab.model.Student;
 import mk.ukim.finki.wp.lab.model.Teacher;
+import mk.ukim.finki.wp.lab.model.enumerations.Type;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -17,6 +19,7 @@ public class DataHolder {
     public static List<Student> students=new ArrayList<>();
     public static List<Course> courses=new ArrayList<>();
     public static List<Teacher> teachers=new ArrayList<>();
+    public static List<Grade> grades=new ArrayList<>();
 
 
 
@@ -35,11 +38,14 @@ public class DataHolder {
         teachers.add(new Teacher("Kalina","Kalinova"));
         teachers.add(new Teacher("Monika","Moneva"));
 
-        courses.add(new Course("Veb Programiranje","SpringBoot Java tehnologija",teachers.get(0), Course.Type.SUMMER));
+        courses.add(new Course("Veb Programiranje","SpringBoot Java tehnologija",teachers.get(0), Type.SUMMER));
         courses.add(new Course("Operativni Sistemi","OS i konkurentnost na procesi",teachers.get(1)));
         courses.add(new Course("Elektronska i mobilna trgovija","React i razvivanje na SpringBoott +React aplikacii",teachers.get(2)));
         courses.add(new Course("Kompjuterski mrezi ","Protokoli za prakjanje i primanje paketi i arhitektura na mrezi",teachers.get(3)));
         courses.add(new Course("Internet Tehnologii","ASP.NET Web Forms i MVC",teachers.get(4)));
         courses= courses.stream().sorted().collect(Collectors.toList());
+
+
+        grades.add(new Grade('A',students.get(0),courses.get(0)));
     }
 }
