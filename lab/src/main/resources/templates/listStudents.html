@@ -59,7 +59,9 @@
 
                     </tbody>
                 </table>
+                <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                 <a href='/createStudent' type='button' name="buttonNewStudent">Create New Student</a>
+                </th:block>
             </div>
         </div>
     </div>

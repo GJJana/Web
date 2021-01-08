@@ -5,6 +5,7 @@ import mk.ukim.finki.wp.lab.model.Course;
 import mk.ukim.finki.wp.lab.model.Teacher;
 import mk.ukim.finki.wp.lab.service.CourseService;
 import mk.ukim.finki.wp.lab.service.TeacherService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,6 @@ public class CourseController {
             model.addAttribute("hasError", true);
             model.addAttribute("error", error);
 
-
         }
         List<Course> courseList=new ArrayList<>();
         if(search==null||search.isEmpty())
@@ -45,7 +45,8 @@ public class CourseController {
         }
 
         model.addAttribute("courses", courseList);
-        return "listCourses";
+        model.addAttribute("bodyContent", "listCourses");
+        return "master-template";
     }
 
     @PostMapping
@@ -65,12 +66,15 @@ public class CourseController {
 
 
     @GetMapping("/add")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String addCoursePage(Model model) {
         List<Teacher> teachers = this.teacherService.findAll();
         model.addAttribute("teachers", teachers);
-        return "add-course";
-    }
+        model.addAttribute("bodyContent", "add-course");
+        return "master-template";
 
+    }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/edit/{id}")
     public String addCoursePage(@PathVariable Long id, Model model) {
         Course course = this.courseService.findCourseById(id);
@@ -79,7 +83,9 @@ public class CourseController {
             List<Teacher> teachers = this.teacherService.findAll();
             model.addAttribute("course", course);
             model.addAttribute("teachers", teachers);
-            return "add-course";
+            model.addAttribute("bodyContent", "add-course");
+            return "master-template";
+
 
         }
         return "redirect:/courses?error=CourseNotFound";
